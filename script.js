@@ -2,7 +2,7 @@
 var generateBtn = document.querySelector("#generate")
 
 function generatePassword() {
-  var lengthString = prompt("Enter the length of characters", "8-128")
+  var lengthString = prompt("Enter the length of characters in the password", "8-128")
   // Catching if cancel is selected
   if (lengthString == null) { return ("Your Secure Password") }
   // Restricting the inputs between 8 and 128
@@ -20,17 +20,17 @@ function generatePassword() {
 
 
   var length = parseInt(lengthString)
-
+// prompts to user to build password database
   var lowerCase = confirm("Do you want to include lowercase letters?")
   var upperCase = confirm("Do you want to include uppercase letters?")
   var numeric = confirm("Do you want to include numbers?")
   var special = confirm("Do you want to include special characters?")
 
-  var characters
+  var characters = ""
   var charLower = "abcdefghijklmnopqrstuvwxyz"
   var charUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   var charNum = "0123456789"
-  var charSpecial = "<>?/!@#$%^&*()=+"
+  var charSpecial = "!@#$%^&*()~`<>+,.-/?;:\[]_{}|"
 
   // Add characters together in order for randomly pick for creating password
   if (lowerCase == true) { characters = characters + charLower }
@@ -44,11 +44,7 @@ function generatePassword() {
     generatePassword()
   }
 
-  // initialize looping variables
-  // var loop1 = 0
-  // var loop2 = 0
-  // var loop3 = 0
-  // var loop4 = 0
+  // initialize looping variable
   var loop = 0
   while (loop < 4) {
     var loop1 = 0
@@ -68,24 +64,25 @@ function generatePassword() {
     }
 
     // making sure at least one of the selected categories is included in the password
+    //lowercase letters
     var lC = /[a-z]/
     var resultLC = lC.test(password)
     if (lowerCase == true && resultLC == true || lowerCase == false) {
       loop1 = 1
     }
-
+//uppercase letters
     var uC = /[A-Z]/
     var resultUC = uC.test(password)
     if (upperCase == true && resultUC == true || upperCase == false) {
       loop2 = 1
     }
-
+// numbers
     var num = /[0-9]/
     var resultNum = num.test(password)
     if (numeric == true && resultNum == true || numeric == false) {
       loop3 = 1
     }
-
+// symbols
     var spec = /\W/
     var resultSpec = spec.test(password)
     if (special == true && resultSpec == true || special == false) {
@@ -101,11 +98,10 @@ function generatePassword() {
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
+//display the password
   passwordText.value = password;
 
 }
 
 // Add event listener to generate button
-
 generateBtn.addEventListener("click", writePassword);
